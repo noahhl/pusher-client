@@ -27,7 +27,7 @@ module PusherClient
       @encrypted = options[:encrypted] || false
 
       bind('pusher:connection_established') do |data|
-        socket = JSON.parse(data)
+        socket = data.is_a?(String) ? JSON.parse(data) : data
         @connected = true
         @socket_id = socket['socket_id']
         subscribe_all
